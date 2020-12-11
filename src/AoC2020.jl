@@ -1,5 +1,9 @@
 module AoC2020
 
-# Write your package code here.
+include("day8/day8.jl")
+
+using .Day8
+
+export day8a, day8b
 
 end
