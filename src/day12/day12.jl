@@ -27,6 +27,7 @@ function forward!(position, facing, distance)
     else
         position.long -= distance
     end
+    nothing
 end
 
 function day12a(filename)
@@ -65,6 +66,7 @@ end
 function move!(position, waypoint, times)
     position.long += times * waypoint.long
     position.lat += times * waypoint.lat
+    nothing
 end
 
 function day12b(filename)
