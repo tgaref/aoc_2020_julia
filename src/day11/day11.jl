@@ -12,79 +12,44 @@ function parseinput(filename)
     reshape(grid,(xsize, div(length(grid), xsize)))
 end
 
-function adjecent_neighbours(grid, x, y)
-    adj = Vector{Tuple{Int, Int}}()
-    (xsize, ysize) = size(grid)
-    push!(adj, (x+1,y))
-    push!(adj, (x-1,y))
-    push!(adj, (x,y+1))
-    push!(adj, (x,y-1))
-    push!(adj, (x+1,y+1))
-    push!(adj, (x+1,y-1))
-    push!(adj, (x-1,y+1))
-    push!(adj, (x-1,y-1))
-    adj = filter(adj) do (a,b)
-        a < 1 || a > xsize || b < 1 || b > ysize ? false : true
-    end            
-
-    count(adj) do (a,b)
-        grid[a,b] == '#'
+function adjacent_neighbours(grid, x, y)
+    count = 0
+    for dx in -1:1
+        for dy in -1:1
+            a = x+dx
+            b = y+dy
+            if 1 <= a <= size(grid,1) && 1<= b <= size(grid,2) && grid[a,b] == '#'
+                count += 1
+            end
+        end
     end
+    grid[x,y] == '#' ? count-1 : count
+end
+        
+function occupied_in_direction(grid, x, y, dx, dy)
+    x += dx
+    y += dy
+    while 1 <= x <= size(grid,1) && 1 <= y <= size(grid,2)
+        if grid[x,y] == 'L'
+            return false
+        elseif grid[x,y] == '#'
+            return true
+        end
+        x += dx
+        y += dy
+    end
+    false
 end
 
 function seen_neighbours(grid, x, y)
-    seen = Vector{Tuple{Int,Int}}()
-    for i in x+1:size(grid,1)
-        if grid[i,y] != '.'
-            push!(seen, (i,y))
-            break
+    count = 0
+    directions = [(1,0), (-1,0), (0,1), (0,-1), (1,1), (-1,1), (1,-1), (-1,-1)]
+    for (dx,dy) in directions
+        if occupied_in_direction(grid, x, y, dx, dy)
+            count += 1
         end
     end
-    for i in x-1:-1:1
-        if grid[i,y] != '.'
-            push!(seen, (i,y))
-            break
-        end
-    end
-    for j in y+1:size(grid,2)
-        if grid[x,j] != '.'
-            push!(seen, (x,j))
-            break
-        end
-    end
-    for j in y-1:-1:1
-        if grid[x,j] != '.'
-            push!(seen, (x,j))
-            break
-        end
-    end
-    for d in 1:min(size(grid,1)-x, size(grid,2)-y)
-        if grid[x+d,y+d] != '.'
-            push!(seen, (x+d,y+d))
-            break
-        end
-    end
-    for d in 1:min(x-1, y-1)
-        if grid[x-d,y-d] != '.'
-            push!(seen, (x-d,y-d))
-            break
-        end
-    end
-    for d in 1:min(size(grid,1)-x, y-1)
-        if grid[x+d,y-d] != '.'
-            push!(seen, (x+d,y-d))
-            break
-        end
-    end
-    for d in 1:min(x-1, size(grid,2)-y)
-        if grid[x-d,y+d] != '.'
-            push!(seen, (x-d,y+d))
-            break
-        end
-    end
-    count(seen) do (a,b)
-        grid[a,b] == '#'
-    end
+    count
 end
 
 function next(grid::Array{Char, 2}, neighbours, threshold)
@@ -110,7 +75,7 @@ function day11a(filename)
     grid = parseinput(filename)
     changes = true
     while changes
-        (grid, changes) = next(grid, adjecent_neighbours, 4)
+        (grid, changes) = next(grid, adjacent_neighbours, 4)
     end
     count(grid) do ch
         ch == '#'
@@ -121,7 +86,7 @@ function day11b(filename)
     grid = parseinput(filename)
     changes = true
     while changes
-        (grid, changes) = next(grid, seen_neighbours, 5)
+        (grid, changes) = next(grid, seen_neighbours2, 5)
     end
     count(grid) do ch
         ch == '#'
