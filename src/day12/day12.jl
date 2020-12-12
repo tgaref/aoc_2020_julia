@@ -55,11 +55,10 @@ function day12a(filename)
 end
 
 function turn_waypoint!(waypoint, bycos, bysin)
-    rho = sqrt(waypoint.lat^2 + waypoint.long^2)
-    cosine = waypoint.long/rho
-    sine = waypoint.lat/rho
-    waypoint.long = rho * (cosine*bycos - sine*bysin)
-    waypoint.lat = rho * (sine*bycos + cosine*bysin)
+    x = waypoint.long
+    y = waypoint.lat
+    waypoint.long = x * bycos - y * bysin
+    waypoint.lat = y * bycos + x * bysin
     nothing
 end
 
