@@ -18,7 +18,7 @@ function adjacent_neighbours(grid, x, y)
         for dy in -1:1
             a = x+dx
             b = y+dy
-            if 1 <= a <= size(grid,1) && 1<= b <= size(grid,2) && grid[a,b] == '#'
+            if 1 <= a <= size(grid,1) && 1 <= b <= size(grid,2) && grid[a,b] == '#'
                 count += 1
             end
         end
@@ -43,10 +43,14 @@ end
 
 function seen_neighbours(grid, x, y)
     count = 0
-    directions = [(1,0), (-1,0), (0,1), (0,-1), (1,1), (-1,1), (1,-1), (-1,-1)]
-    for (dx,dy) in directions
-        if occupied_in_direction(grid, x, y, dx, dy)
-            count += 1
+    for dx in -1:1
+        for dy in -1:1
+            if dx == 0 && dy == 0
+                continue
+            end
+            if occupied_in_direction(grid, x, y, dx, dy)
+                count += 1
+            end
         end
     end
     count
@@ -86,7 +90,7 @@ function day11b(filename)
     grid = parseinput(filename)
     changes = true
     while changes
-        (grid, changes) = next(grid, seen_neighbours2, 5)
+        (grid, changes) = next(grid, seen_neighbours, 5)
     end
     count(grid) do ch
         ch == '#'
