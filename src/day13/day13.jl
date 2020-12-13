@@ -24,7 +24,8 @@ function day13a(filename)
         isa(x, Int)
     end
     later = map(buses) do t
-        t - mod(earliest, t)
+        r = mod(earliest, t)
+        r == 0 ? 0 : t - r
     end
     (dt,ind) = findmin(later)         
     dt * buses[ind]
