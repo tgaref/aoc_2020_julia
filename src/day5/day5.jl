@@ -4,7 +4,7 @@ export day5a, day5b, findrow, findseat
 
 function findposition(str, upper)
     reduce(str, init = 0) do acc c
-        c == upper? acc+1 : acc
+        c == upper ? acc+1 : acc
     end
 end
 
