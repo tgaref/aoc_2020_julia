@@ -110,7 +110,6 @@ function day16b(filename)
         correct!(labels, rules, ticket)
     end
 
-
     # Start with fields with only one possibility.
     # Remove this possibility from the other field's
     # label set. Continue until all fields have a
