@@ -89,41 +89,32 @@ end
 
 function day16b(filename)
     (rules, myticket, tickets) = parseinput(filename)
-<<<<<<< HEAD
     # Find the valid tickets
-=======
->>>>>>> aad768e7e2f8e6851e480b654d45699c21691849
     valid_tickets = Ticket[]
     for ticket in tickets
         if isvalid(rules, ticket)
             push!(valid_tickets, ticket)
         end
     end
-<<<<<<< HEAD
+    
     # Initialize labels: every field may have any label
-=======
->>>>>>> aad768e7e2f8e6851e480b654d45699c21691849
     labels = Dict{Int, Set{String}}()
     for field in 1:length(myticket.fields)
         labels[field] = Set(keys(rules))
     end
 
-<<<<<<< HEAD
+
     # Remove labels from fields that cannot have the
     # label due to range constraints
-=======
->>>>>>> aad768e7e2f8e6851e480b654d45699c21691849
     for ticket in valid_tickets
         correct!(labels, rules, ticket)
     end
 
-<<<<<<< HEAD
+
     # Start with fields with only one possibility.
     # Remove this possibility from the other field's
     # label set. Continue until all fields have a
     # unique label    
-=======
->>>>>>> aad768e7e2f8e6851e480b654d45699c21691849
     label = Dict{Int, String}()
     todo = Set(1:length(myticket.fields))
     while !isempty(todo)
