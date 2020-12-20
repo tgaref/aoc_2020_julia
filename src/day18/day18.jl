@@ -1,6 +1,6 @@
 module Day18
 
-export day18a, day18b
+export day18
 
 using CombinedParsers
 using TextParse
@@ -14,10 +14,17 @@ function evaluate((start, operation_values))
     return aggregated_value
 end
 
+# Parser of '+' surrounded by whitepsace
+plus = Sequence(2, Repeat(CombinedParsers.Regexp.whitespace_maybe), '+', Repeat(CombinedParsers.Regexp.whitespace_maybe))
+# Parser of '*' surrounded by whitepsace
+times = Sequence(2, Repeat(CombinedParsers.Regexp.whitespace_maybe), '*', Repeat(CombinedParsers.Regexp.whitespace_maybe))
+# Parser of '+' or '*' surrounded by whitepsace
+plustimes = Sequence(2, Repeat(CombinedParsers.Regexp.whitespace_maybe), CharIn("+*"), Repeat(CombinedParsers.Regexp.whitespace_maybe)) 
+
 @syntax subterma = Either{Int}(Any[TextParse.Numeric(Int)])
 
 @syntax for parenthesis in subterma
-    term = evaluate |> join(subterma, CharIn("*+"), infix=:prefix )
+    term = evaluate |> join(subterma, plustimes, infix=:prefix )
     Sequence(2,'(',term,')')
 end
 
@@ -26,15 +33,15 @@ end
 @syntax subtermb = Either{Int}(Any[TextParse.Numeric(Int)])
 
 @syntax for parenthesis in subtermb
-    adds = evaluate |> join(subtermb, CharIn("+"), infix=:prefix )
-    mult = evaluate |> join(adds, CharIn("*"), infix=:prefix )
+    adds = evaluate |> join(subtermb, plus, infix=:prefix )
+    mult = evaluate |> join(adds, times, infix=:prefix )
     Sequence(2,'(',mult,')')
 end
 
 @syntax exprb = mult
 
-day18a(filename) = sum(map(s -> join(split(s, ' ')) |> Day18.expra, readlines("input_day18.txt")))
+day18(::Val{:a}, filename) = sum(map(expra, readlines("input_day18.txt")))
 
-day18b(filename) = sum(map(s -> join(split(s, ' ')) |> Day18.exprb, readlines("input_day18.txt")))
+day18(::Val{:b}, filename) = sum(map(exprb, readlines("input_day18.txt")))
 
 end
