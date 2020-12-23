@@ -1,4 +1,4 @@
-module Day19
+module Day19v1
 
 export day19
 
