@@ -1,6 +1,6 @@
 module Day3
 
-export day3a, day3b
+export day3
 
 function check_slope(terrain, a, b)
     counter = 0
@@ -19,12 +19,12 @@ function check_slope(terrain, a, b)
    counter
 end
 
-function day3a(filename)
+function day3(::Val{:a}, filename)
     terrain = readlines(filename)
     check_slope(terrain, 3,1)
 end
 
-function day3b(filename)
+function day3(::Val{:b}, filename)
     terrain = readlines(filename)
     slopes = [(1,1), (3,1), (5,1), (7,1), (1,2)]
     result = UInt(1)

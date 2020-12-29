@@ -1,6 +1,6 @@
 module Day11
 
-export day11a, day11b
+export day11
 
 function parseinput(filename)
     grid = Vector{Char}()
@@ -75,7 +75,7 @@ function next(grid::Array{Char, 2}, neighbours, threshold)
     (newgrid, changes)
 end
 
-function day11a(filename)
+function day11(::Val{:a}, filename)
     grid = parseinput(filename)
     changes = true
     while changes
@@ -86,7 +86,7 @@ function day11a(filename)
     end
 end
 
-function day11b(filename)
+function day11(::Val{:b}, filename)
     grid = parseinput(filename)
     changes = true
     while changes

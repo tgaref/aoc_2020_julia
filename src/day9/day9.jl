@@ -1,6 +1,6 @@
 module Day9
 
-export day9a, day9b
+export day9
 
 function issumoftwo(window, number)
     for a in window
@@ -11,7 +11,7 @@ function issumoftwo(window, number)
     false
 end
 
-function day9a(filename, prelen)
+function day9(::Val{:a}, filename, prelen)
     input = Vector{Int}()
     for line in readlines(filename)
         push!(input, parse(Int, line))
@@ -37,7 +37,7 @@ function findwindow(input, target)
     end
 end
 
-function day9b(filename, prelen)
+function day9(::Val{:b}, filename, prelen)
     input = Vector{Int}()
     for line in readlines(filename)
         push!(input, parse(Int, line))

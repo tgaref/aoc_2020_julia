@@ -1,6 +1,6 @@
 module Day7
 
-export day7a, day7b, parsebags
+export day7
 
 using CombinedParsers
 import CombinedParsers.Regexp: word, whitespace_maybe
@@ -48,7 +48,7 @@ function parsebagsreverse(filename)
     bags
 end
 
-function day7a(filename)
+function day7(::Val{:a}, filename)
     target = "shiny gold"
     bags = parsebagsreverse(filename)
     good = Set{String}()
@@ -67,7 +67,7 @@ function day7a(filename)
     length(good)
 end
 
-function day7b(filename)
+function day7(::Val{:b}, filename)
     current = "shiny gold"
     bags = parsebags2(filename)
     totry = Set{Tuple{Int, String}}([(1, current)])

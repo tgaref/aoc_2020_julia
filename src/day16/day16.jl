@@ -1,6 +1,6 @@
 module Day16
 
-export day16a, day16b
+export day16
 
 struct Ticket
     fields::Vector{Int}
@@ -63,7 +63,7 @@ function iscompletelyinvalid(rules, n)
     n
 end
 
-function day16a(filename)
+function day16(::Val{:a}, filename)
     (rules, myticket, tickets) = parseinput(filename)
 
     suma = 0
@@ -87,7 +87,7 @@ function correct!(labels, rules, ticket)
     end
 end
 
-function day16b(filename)
+function day16(::Val{:b}, filename)
     (rules, myticket, tickets) = parseinput(filename)
     # Find the valid tickets
     valid_tickets = Ticket[]

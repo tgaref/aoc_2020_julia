@@ -1,6 +1,6 @@
 module Day13
 
-export day13a, day13b
+export day13
 
 using CombinedParsers
 import CombinedParsers.Regexp: word, whitespace_maybe
@@ -18,7 +18,7 @@ end
 # Bus with timestamp t arrives at dt = l*t - earliest.
 # If earliest = k*t + r, then dt = (k+1)*t - earliest
 # = t - r = t - mod(earliest, t)
-function day13a(filename)
+function day13(::Val{:a}, filename)
     (earliest, buses::Vector{Union{Char,Int}}) = parseinput(filename)
     buses = filter(buses) do x
         isa(x, Int)
@@ -34,7 +34,7 @@ end
 # The time t is such that t = -i+1 mod n_i, where
 # n_i is the timestamp of the i-th bus in the list
 # including the 'x'. We solve using the CRT.
-function day13b(filename)
+function day13(::Val{:b}, filename)
     (earliest, buses::Vector{Union{Char,Int}}) = parseinput(filename)
     N = prod(filter(c -> isa(c, Int), buses))
     suma = 0

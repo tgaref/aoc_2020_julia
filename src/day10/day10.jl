@@ -2,9 +2,9 @@ module Day10
 
 using Combinatorics
 
-export day10a, day10b
+export day10
 
-function day10a(filename)
+function day10(::Val{:a}, filename)
     input = Vector{Int}()
     for line in readlines(filename)
         push!(input, parse(Int, line))
@@ -42,7 +42,7 @@ function isvalid(t)
     true
 end
 
-function day10b(filename)
+function day10(::Val{:b}, filename)
     input = Vector{Int}()
     for line in readlines(filename)
         push!(input, parse(Int, line))

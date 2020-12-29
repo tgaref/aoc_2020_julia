@@ -1,6 +1,6 @@
 module Day12
 
-export day12a, day12b
+export day12
 
 mutable struct Position{T}
     long::T # East-West
@@ -30,7 +30,7 @@ function forward!(position, facing, distance)
     nothing
 end
 
-function day12a(filename)
+function day12(::Val{:a}, filename)
     dir2num = Dict{Char, Int}(['N' => 0, 'E' => 1, 'S' => 2, 'W' => 3])
     input = parseinput(Int, filename)
     position = Position{Int}(0,0)
@@ -69,7 +69,7 @@ function move!(position, waypoint, times)
     nothing
 end
 
-function day12b(filename)
+function day12(::Val{:b}, filename)
     input = parseinput(Float64, filename)
     waypoint = Position(10.0,1.0)
     position = Position(0.0,0.0)

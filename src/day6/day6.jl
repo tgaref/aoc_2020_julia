@@ -1,6 +1,6 @@
 module Day6
 
-export day6a, day6b
+export day6
 
 function answersbygroup(filename)
     groups = Vector{Vector{String}}()
@@ -18,7 +18,7 @@ function answersbygroup(filename)
     groups
 end
 
-function day6a(filename)
+function day6(::Val{:a}, filename)
     groups = answersbygroup(filename)
     sum(length(unique(join(group))) for group in groups)
 end
@@ -27,7 +27,7 @@ function check(c, group)
     all(in(c,str) for str in group)
 end
 
-function day6b(filename)
+function day6(::Val{:b}, filename)
     groups = answersbygroup(filename)    
     sum(filter(c -> check(c,group), group[1]) |> unique |> length for group in groups)
 end

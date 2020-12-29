@@ -1,6 +1,6 @@
 module Day4
 
-export day4a, day4b
+export day4
 
 struct Passport
     byr::Union{Int,Nothing}
@@ -72,7 +72,7 @@ function isvalid(pass)
         !isnothing(pass.pid)
 end
 
-function day4a(filename)
+function day4(::Val{:a}, filename)
     passports = read_data(filename)
     count(isvalid, passports)
 end
@@ -134,7 +134,7 @@ function strictlyvalid(pass)
         validhcl(pass)
 end
 
-function day4b(filename)
+function day4(::Val{:b}, filename)
     passports = read_data(filename)
     count(strictlyvalid, passports)
 

@@ -1,8 +1,8 @@
 module Day1
 
-export day1a, day1b
+export day1
 
-function day1a(filename, n)
+function day1(::Val{:a}, filename, n)
     nums = map(s -> parse(Int,s), readlines(filename)) |> Set{Int}
 
     for k in nums
@@ -13,7 +13,7 @@ function day1a(filename, n)
     nothing
 end
 
-function day1b(filename, n)
+function day1(::Val{:b}, filename, n)
     nums = map(s -> parse(Int,s), readlines(filename)) |> Set{Int}
     for i in nums
         for j in nums

@@ -3,7 +3,7 @@ module Day14
 using CombinedParsers
 using CombinedParsers.Regexp: whitespace_maybe
 
-export day14a, day14b
+export day14
 
 function parsemem(str)
     mem = Sequence("mem[", :ind => Numeric(Int), "] = ", :value => Numeric(Int))
@@ -24,7 +24,7 @@ function applytovalue(mask, value)
     result
 end
 
-function day14a(filename)
+function day14(::Val{:a}, filename)
     mem = Dict{Int,Int}()
     mask = Char[]
     for line in readlines(filename)
@@ -58,7 +58,7 @@ function applytoaddress(mask, addr)
     indices
 end
 
-function day14b(filename)
+function day14(::Val{:b}, filename)
     mem = Dict{Int,Int}()
     mask = Char[]
     for line in readlines(filename)

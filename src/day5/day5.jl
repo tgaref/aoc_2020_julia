@@ -1,6 +1,6 @@
 module Day5
 
-export day5a, day5b, findrow, findseat
+export day5
 
 function findposition(str, upper)
     reduce(str, init = 0) do acc c
@@ -8,7 +8,7 @@ function findposition(str, upper)
     end
 end
 
-function day5a(filename)
+function day5(::Val{:a}, filename)
     highest = 0
     for line in readlines(filename)
         line = strip(line)
@@ -24,7 +24,7 @@ function day5a(filename)
     highest
 end
 
-function day5b(filename)
+function day5(::Val{:b}, filename)
     seats = Set{Int}()
     for line in readlines(filename)
         line = strip(line)

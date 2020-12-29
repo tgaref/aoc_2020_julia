@@ -1,6 +1,6 @@
 module Day2
 
-export day2a, day2b
+export day2
 
 struct PassWdRules
     range::Tuple{Int,Int}
@@ -24,7 +24,7 @@ function parse_rule(str)
     PassWdRules(tuple(r...), v[2][1], strip(v[3]))
 end
 
-function day2a(filename)
+function day2(::Val{:a}, filename)
     w = map(parse_rule, readlines(filename))
     counter = 0
     for p in w
@@ -35,7 +35,7 @@ function day2a(filename)
     counter
 end
 
-function day2b(filename)
+function day2(::Val{:b}, filename)
     w = map(parse_rule, readlines(filename))
     counter = 0
     for p in w

@@ -1,6 +1,6 @@
 module Day8
 
-export day8a, day8b
+export day8
 
 using CombinedParsers
 import CombinedParsers.Regexp: word, whitespace_maybe
@@ -21,7 +21,7 @@ function parseline(str)
     str |> line
 end
 
-function day8a(filename)
+function day8(::Val{:a}, filename)
     code = Vector{NamedTuple{(:instr,:value),Tuple{String,Int}}}()
     for line in readlines(filename)
         push!(code, parseline(line)) 
@@ -46,7 +46,7 @@ function day8a(filename)
     acc        
 end
 
-function day8b(filename)
+function day8(::Val{:b}, filename)
     code = Vector{Instruction}()
     for line in readlines(filename)
         t::NamedTuple{(:instr, :value), Tuple{String, Int}} = parseline(line)
